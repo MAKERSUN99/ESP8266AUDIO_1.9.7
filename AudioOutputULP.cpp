@@ -23,7 +23,7 @@
 #include "AudioOutputULP.h"
 #include <esp32/ulp.h>
 #include <driver/rtc_io.h>
-#include <driver/dac.h>
+//#include <driver/dac.h>
 #include <soc/rtc.h>
 #include <math.h>
 
@@ -54,7 +54,7 @@ bool AudioOutputULP::begin()
   //calculate the actual ULP clock
   unsigned long rtc_8md256_period = rtc_clk_cal(RTC_CAL_8MD256, 1000);
   unsigned long rtc_fast_freq_hz = 1000000ULL * (1 << RTC_CLK_CAL_FRACT) * 256 / rtc_8md256_period;
-
+  /*
   //initialize DACs
   if(activeDACs & 1){
     dac_output_enable(DAC_CHANNEL_1);
@@ -63,7 +63,7 @@ bool AudioOutputULP::begin()
   if(activeDACs & 2){
     dac_output_enable(DAC_CHANNEL_2);
     dac_output_voltage(DAC_CHANNEL_2, 128);
-  }
+  }*/
 
   int retAddress1 = 9;
   int retAddress2 = 14;
@@ -248,13 +248,13 @@ bool AudioOutputULP::stop()
   
   //start
   ulp_run(0);
-
+  /*
   if(activeDACs & 1){
     dac_output_voltage(DAC_CHANNEL_1, 128);
   }
   if(activeDACs & 2){
     dac_output_voltage(DAC_CHANNEL_2, 128);
-  }
+  }*/
 
   return true;
 }
